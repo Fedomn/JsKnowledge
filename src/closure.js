@@ -34,3 +34,25 @@ console.log(
     console.log([].join.call(arguments, ';'));
 }).apply(this, [1, 2, 3]);
 
+/** 实际上，闭包存储的是外部变量的引用，而不是他们的值副本。因此，闭包可以跟新外部变量的值**/
+function box() {
+    var val = undefined;
+
+    return {
+        set: function (newVal) {
+            val = newVal;
+        },
+        get: function () {
+            return val;
+        },
+        type: function () {
+            return typeof val;
+        }
+    };
+}
+
+var b = box();
+console.log(b.type());
+b.set(12);
+console.log(b.get());
+console.log(b.type());
